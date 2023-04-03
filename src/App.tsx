@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import HomeTemplate from './templates/HomeTemplate'
+import Home from './pages/Home'
+import Detail from './pages/Detail'
+import Search from './pages/Search'
+import SignUp from './pages/SignUp'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import AuthComponent from './components/AuthComponent'
+type Props = {}
 
-function App() {
+export default function App({ }: Props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<HomeTemplate />}>
+          <Route >
+            <Route index element={<AuthComponent />} />
+            <Route path='search' element={<Search />} />
+            <Route path='detail' element={<Detail />} />
+          </Route>
+        </Route>
+        <Route path='*' element={<NotFound />} />
 
-export default App;
+        <Route path='login' element={<Login />} />
+        <Route path='signup' element={<SignUp />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
